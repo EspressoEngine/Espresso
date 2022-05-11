@@ -38,4 +38,13 @@ public class Vector2 {
     public Vector2 mult(Vector2 vector) {
         return new Vector2(this.x * vector.x, this.y * vector.y);
     }
+
+    public Vector2 mult(double factor) {
+        return new Vector2(this.x * factor, this.y * factor);
+    }
+
+    // STRING
+    public String toString() {
+        return String.format("%s[x=%f, y=%f]", this.getClass().toString(), x, y);
+    }
 }
