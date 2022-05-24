@@ -32,4 +32,8 @@ public class Object {
         return new Vector2(boundingBox.getX(), boundingBox.getY());
     }
 
+    public void lookAt(Vector2 lookpos) {
+        rotation = Math.atan2(lookpos.y - position.y, lookpos.x - position.x);
+    }
+
 }

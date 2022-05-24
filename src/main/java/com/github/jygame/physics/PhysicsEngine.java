@@ -10,26 +10,47 @@ public class PhysicsEngine {
     public Vector2 bounds = new Vector2();
     public double gravity = 0.05; // acceleration due to gravity
 
-    public void nextFrame() {
-        for(int i = 0; i < bodies.size(); i ++) {
-            bodies.get(i).velocity.y -= gravity * bodies.get(i).mass;
-            bodies.get(i).checkScreenCollisions(bounds);
+    // QUEUED CHANGES TO bodies
+    private ArrayList<RigidBody> bodiesToAdd = new ArrayList<RigidBody>();
+    private ArrayList<RigidBody> bodiesToRemove = new ArrayList<RigidBody>();
 
-            bodies.get(i).collidingBodies = 0; // Resets collidingBodies
+    public void nextFrame() {
+        updateBodyList();
+        for(int i = 0; i < bodies.size(); i ++) {
+            RigidBody body = bodies.get(i);
+            body.velocity.y -= gravity * body.mass;
+            body.checkScreenCollisions(bounds);
+            body.collidingBodies.clear(); // Resets collidingBodies
             for(int j = 0; j < bodies.size(); j ++) {
-                if(i != j) bodies.get(i).checkObjectCollisions(bodies.get(j)); // Collision detection
+                if(i != j) body.checkObjectCollisions(bodies.get(j)); // Collision detection
             }
-            bodies.get(i)._onUpdate();
+            body._onUpdate();
             
-            bodies.get(i).setPosition(); // Now, after *everything*, the velocity of the object will be the velocity desired. Set the position of the object.
+            body.setPosition(); // Now, after *everything*, the velocity of the object will be the velocity desired. Set the position of the object.
         }
     }
 
     public void add(RigidBody object) {
-        bodies.add(object);
+        bodiesToAdd.add(object);
     }
     public void remove(RigidBody object) {
-        bodies.remove(object);
+        bodiesToRemove.add(object);
+    }
+    // --> UPDATING
+    private void updateBodyList() { // We QUEUE changes instead of directly affect the object list as to avoid concurrency errors. (Hey, that's just like Scene.java!)
+        // Adding bodies
+        for(int i = 0; i < bodiesToAdd.size(); i++) {
+            if(bodies.indexOf(bodiesToAdd.get(i)) == -1) bodies.add(bodiesToAdd.get(i)); // Avoiding adding bodies twice
+        }
+
+        // Removing bodies
+        for(int i = 0; i < bodiesToRemove.size(); i++) {
+            bodies.remove(bodiesToRemove.get(i));
+        }
+
+        // Clearing the arrays
+        bodiesToAdd.clear();
+        bodiesToRemove.clear();
     }
 
 }

@@ -10,6 +10,10 @@ public class Scene {
     public Window window;
     public ArrayList<Object> objects = new ArrayList<Object>();
 
+    // QUEUED CHANGES TO objects
+    private ArrayList<Object> objectsToAdd = new ArrayList<Object>();
+    private ArrayList<Object> objectsToRemove = new ArrayList<Object>();
+
     // INITIALIZATION
     public Scene(Window window) {
         this.window = window;
@@ -24,18 +28,44 @@ public class Scene {
 
     // OBJECTS
     public void add(Object object) {
-        objects.add(object);
+        objectsToAdd.add(object);
     }
     public void remove(Object object) {
-        objects.remove(object);
+        objectsToRemove.add(object);
     }
-    public void sortZ() {
+    // --> UPDATING
+    private void updateObjectList() { // We QUEUE changes instead of directly affect the object list as to avoid concurrency errors.
+        // Adding objects
+        for(int i = 0; i < objectsToAdd.size(); i++) {
+            if(objects.indexOf(objectsToAdd.get(i)) == -1) objects.add(objectsToAdd.get(i)); // Avoiding adding objects twice
+        }
+
+        // Removing objects
+        for(int i = 0; i < objectsToRemove.size(); i++) {
+            objects.remove(objectsToRemove.get(i));
+        }
+
+        // Clearing the arrays
+        objectsToAdd.clear();
+        objectsToRemove.clear();
+    }
+    private void sortZ() {
         objects.sort(Comparator.comparing(Object::getZIndex, (s1, s2) -> {
             return Integer.compare(s1, s2);
         }));
     }
 
-    // FUNCTION
+    // UPDATING EVERYTHING
+    public void update() {
+        // a. update objects
+        updateObjectList();
+        // b. sort z
+        sortZ();
+        // c. draw
+        window.canvas.drawAll();
+    }
+
+    // FUNCTIONS
     public void setBackground(Color color) {
         window.canvas.setBackground(color);
     }
