@@ -20,5 +20,7 @@ mvn install
 ```
 5. Profit
 
+*Note: You could also do something here with GitHub Packages, but I have no idea what that is.*
+
 ## How do I use JyGame? Do you have an example?
 Although it isn't fully documented (yet), you can try an example of JyGame [here](https://github.com/pastthepixels/JyGame-Example).
