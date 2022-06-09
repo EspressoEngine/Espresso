@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.awt.Color;
 import com.github.jygame.object.Object;
 import java.util.Comparator;
+import java.util.concurrent.Executors;
 
 public class Scene {
     // INSTANCE VARIABLES
@@ -63,6 +64,27 @@ public class Scene {
         sortZ();
         // c. draw
         window.canvas.drawAll();
+    }
+
+    public void startLoop() {
+        long frequency = 1000/60; // The 60 in this case is 60 FPS;
+        Executors.newSingleThreadExecutor().submit(() -> {
+            while(true) {
+                process(frequency);
+                update();
+
+                // Waiting
+                try {
+                    Thread.sleep(frequency);
+                } catch (InterruptedException e) {
+                }
+            }
+        });
+    }
+
+    // YOU CAN OVERRIDE THIS
+    public void process(double delta) { // Godot moment
+
     }
 
     // FUNCTIONS

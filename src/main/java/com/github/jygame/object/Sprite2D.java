@@ -27,6 +27,7 @@ public class Sprite2D extends Object {
     public Sprite2D() {
 
     }
+    
     public Sprite2D(String path) {
         loadImage(path);
     }

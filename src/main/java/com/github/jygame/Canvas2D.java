@@ -40,7 +40,11 @@ public class Canvas2D extends JPanel {
                 continue; // If an object is set to be invisible, don't render that object.
             }
 
+            // EVENTS
+            scene.objects.get(i).onBeforeDraw();
+
             // BOUNDING BOXES I
+            if(scene.objects.get(i) instanceof Mesh2D && ((Mesh2D)scene.objects.get(i)).geometry == null) ((Mesh2D)scene.objects.get(i)).updateGeometry();
             scene.objects.get(i).updateBoundingBox(backend.getTransform());
 
             // POSITIONING

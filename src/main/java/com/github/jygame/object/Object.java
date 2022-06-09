@@ -36,4 +36,9 @@ public class Object {
         rotation = Math.atan2(lookpos.y - position.y, lookpos.x - position.x);
     }
 
+    // EVENTS!
+    public void onBeforeDraw() { // Executed in the draw loop, before the actual drawing begins
+
+    }
+
 }

@@ -13,4 +13,12 @@ public class Rect extends Mesh2D {
         this._geometry.setRect(_enginePosition.x, _enginePosition.y, size.x, size.y);
         this.geometry = this._geometry;
     }
+
+    public Rect() {
+
+    }
+
+    public Rect(Vector2 size) {
+        this.size = size;
+    }
 }
