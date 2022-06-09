@@ -1,4 +1,6 @@
 /var/home/pastthepixels/Documents/GitHub/JyGame/src/main/java/com/github/jygame/Canvas2D.java
+/var/home/pastthepixels/Documents/GitHub/JyGame/src/main/java/com/github/jygame/Utils.java
+/var/home/pastthepixels/Documents/GitHub/JyGame/src/main/java/com/github/jygame/input/KeyHandler.java
 /var/home/pastthepixels/Documents/GitHub/JyGame/src/main/java/com/github/jygame/Scene.java
 /var/home/pastthepixels/Documents/GitHub/JyGame/src/main/java/com/github/jygame/object/Circle.java
 /var/home/pastthepixels/Documents/GitHub/JyGame/src/main/java/com/github/jygame/physics/PhysicsEngine.java
