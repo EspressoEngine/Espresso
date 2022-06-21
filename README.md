@@ -20,12 +20,6 @@ Also, it uses Swing and not something like OpenGL or Vulkan or whatever.
 
 <dependencies>
   <dependency>
-    <groupId>junit</groupId>
-    <artifactId>junit</artifactId>
-    <version>4.11</version>
-    <scope>test</scope>
-  </dependency>
-  <dependency>
     <groupId>com.github.jygame</groupId>
     <artifactId>jygame</artifactId>
     <version>1.0</version>
