@@ -5,6 +5,12 @@ import java.util.ArrayList;
 
 import com.github.jygame.Vector2;
 
+/**
+ * <p>A simple 2D physics engine for JyGame.</p>
+ *
+ * @author pastthepixels
+ * @version $Id: $Id
+ */
 public class PhysicsEngine {
     public ArrayList<RigidBody> bodies = new ArrayList<RigidBody>();
     public Vector2 bounds = new Vector2();
@@ -14,6 +20,9 @@ public class PhysicsEngine {
     private ArrayList<RigidBody> bodiesToAdd = new ArrayList<RigidBody>();
     private ArrayList<RigidBody> bodiesToRemove = new ArrayList<RigidBody>();
 
+    /**
+     * Updates the physics engine to the "next frame". Needs to be called manually every loop.
+     */
     public void nextFrame() {
         updateBodyList();
         for(int i = 0; i < bodies.size(); i ++) {
@@ -30,14 +39,30 @@ public class PhysicsEngine {
         }
     }
 
+    /**
+     * <p>Adds a <code>RigidBody</code> to the list of total bodies.</p>
+     *
+     * @param object a {@link com.github.jygame.physics.RigidBody} object
+     */
     public void add(RigidBody object) {
         bodiesToAdd.add(object);
     }
+
+    /**
+     * <p>Removes a <code>RigidBody</code> from the list of total bodies.</p>
+     *
+     * @param object a {@link com.github.jygame.physics.RigidBody} object
+     */
     public void remove(RigidBody object) {
         bodiesToRemove.add(object);
     }
-    // --> UPDATING
-    private void updateBodyList() { // We QUEUE changes instead of directly affect the object list as to avoid concurrency errors. (Hey, that's just like Scene.java!)
+
+    /**
+     * Tells the engine to update the working list of bodies.
+     * We QUEUE changes (<code>add</code>/<code>remove</code>) instead of directly affect the object list as to avoid concurrency errors. (Hey, that's just like Scene.java!)
+     *
+     */
+    private void updateBodyList() {
         // Adding bodies
         for(int i = 0; i < bodiesToAdd.size(); i++) {
             if(bodies.indexOf(bodiesToAdd.get(i)) == -1) bodies.add(bodiesToAdd.get(i)); // Avoiding adding bodies twice
