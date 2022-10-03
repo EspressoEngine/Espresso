@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import com.github.jygame.Vector2;
 import com.github.jygame.object.Object;
 
+/**
+ * <p>RigidBody class.</p>
+ *
+ * @author pastthepixels
+ * @version $Id: $Id
+ */
 public class RigidBody {
     public Object object; // Object instance
     public Vector2 velocity = new Vector2(); // Uniform motion
@@ -17,16 +23,29 @@ public class RigidBody {
     public ArrayList<RigidBody> oldCollidingBodies = new ArrayList<RigidBody>(); // Old value of collidingBodies each update so we can keep track of changes.
     public boolean dbg = false; // Enable debug messages
 
+    /**
+     * <p>Constructor for RigidBody.</p>
+     *
+     * @param object a {@link com.github.jygame.object.Object} object
+     */
     public RigidBody(Object object) {
         this.object = object;
     }
 
+    /**
+     * <p>Updates the position of an object with its velocity.</p>
+     */
     public void setPosition() {
         object.position = object.position.sub(this.velocity);
     }
 
     // Collisions
-    public void checkScreenCollisions(Vector2 bounds) { // ...with the bounds of the screen
+    /**
+     * Checks collisions with the edges of the screen and updates the velocity of the object accordingly.
+     *
+     * @param bounds a {@link com.github.jygame.Vector2} object
+     */
+    public void checkScreenCollisions(Vector2 bounds) {
         if (object.boundingBox == null || disabled == true)
             return;
 
@@ -49,6 +68,11 @@ public class RigidBody {
         }
     }
 
+    /**
+     * Checks collisions with another object and updates its velocity accordingly.
+     *
+     * @param body a {@link com.github.jygame.physics.RigidBody} object
+     */
     public void checkObjectCollisions(RigidBody body) { // ...with the bounds of the screen
         if (object.boundingBox == null)
             return;
@@ -81,6 +105,9 @@ public class RigidBody {
     }
 
     // Events
+    /**
+     * Called by <code>PhysicsEngine</code> when it calls <code>nextFrame</code>. Override <code>onUpdate</code> instead of this function.
+     */
     public void _onUpdate() { // Simply checks for changes with oldCollidingBodies and collidingBodies and then updates oldCollidingBodies for a new update
         if(oldCollidingBodies.size() != collidingBodies.size()) {
             if(oldCollidingBodies.size() < collidingBodies.size()) {
@@ -102,10 +129,20 @@ public class RigidBody {
         }
     }
 
+    /**
+     * Called when the body enters another body. Designed to be overridden.
+     *
+     * @param body a {@link com.github.jygame.physics.RigidBody} object
+     */
     public void onBodyEntered(RigidBody body) {
         // Users can create a class inherited from this type and override this function.
         // Effectively, this becomes like an event listener.
     }
+    /**
+     * Called when the body exits another body. Designed to be overridden.
+     *
+     * @param body a {@link com.github.jygame.physics.RigidBody} object
+     */
     public void onBodyExited(RigidBody body) {
         // Users can create a class inherited from this type and override this function.
         // Effectively, this becomes like an event listener.

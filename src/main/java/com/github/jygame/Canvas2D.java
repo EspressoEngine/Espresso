@@ -9,6 +9,12 @@ import com.github.jygame.object.Mesh2D;
 import com.github.jygame.object.Sprite2D;
 import com.github.jygame.object.Label;
 
+/**
+ * <p>Swing <code>JPanel</code> instance where everything is drawn.</p>
+ *
+ * @author pastthepixels
+ * @version $Id: $Id
+ */
 public class Canvas2D extends JPanel {
     // INSTANCE VARIABLES
     private Scene scene;
@@ -17,15 +23,26 @@ public class Canvas2D extends JPanel {
             RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON);
 
+    /**
+     * <p>Setter for the field <code>scene</code>.</p>
+     *
+     * @param scene a {@link com.github.jygame.Scene} object
+     */
     public void setScene(Scene scene) {
         this.scene = scene;
     }
 
+    /**
+     * <p>Returns true if the value <code>scene</code> is not <code>null</code>.</p>
+     *
+     * @return a boolean
+     */
     public boolean hasScene() {
         return scene != null;
     }
 
     // UPDATING
+    /** {@inheritDoc} */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D backend = (Graphics2D) g;
@@ -107,6 +124,9 @@ public class Canvas2D extends JPanel {
         }
     }
 
+    /**
+     * <p>Forces the canvas to re-draw itself.</p>
+     */
     public void drawAll() {
         repaint();
         Toolkit.getDefaultToolkit().sync();
