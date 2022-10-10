@@ -17,6 +17,7 @@ public class Window extends JFrame {
   // CONSTANTS
   final private Vector2 SIZE = new Vector2(600, 800);
   private String TITLE = "JyGame Window";
+  public boolean stopOnClose = true;
 
   // INITIALISING THE WINDOW
   /**
@@ -64,7 +65,13 @@ public class Window extends JFrame {
   public void init() {
     // sets some properties of the frame
     setTitle(TITLE);
-    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);// JFrame.EXIT__ON_CLOSE
+    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);// JFrame.EXIT__ON_CLOSE
+    addWindowListener(new WindowAdapter() {
+        @Override
+        public void windowClosing(WindowEvent event) {
+            close();
+        }
+    });
     setResizable(false);
 
     // creates a pane where we will hold everything, and make it look cool
@@ -79,6 +86,14 @@ public class Window extends JFrame {
    */
   public void open() {
     setVisible(true);
+  }
+
+  /**
+   * Closes the window. If <code>Window.stopOnClose</code> is set to <code>true</code>, it will also stop the entire program.
+   */
+  public void close() {
+    dispose();
+    if (this.stopOnClose == true) System.exit(0);
   }
 
 }
