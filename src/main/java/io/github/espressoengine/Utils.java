@@ -1,4 +1,4 @@
-package com.github.jygame;
+package io.github.espressoengine;
 
 /**
  * Utility functions to help reduce the amount of code in a game.

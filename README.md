@@ -39,8 +39,8 @@ Like the engine, it's designed to be simple and is better when you pair it with 
 
 <dependencies>
   <dependency>
-    <groupId>com.github.jygame</groupId>
-    <artifactId>jygame</artifactId>
+    <groupId>io.github.espressoengine</groupId>
+    <artifactId>espresso</artifactId>
     <version>1.0</version>
   </dependency>
 </dependencies>
@@ -73,8 +73,8 @@ mvn install
 4. In your `pom.xml` file, add this under the `<dependencies>` tag:
 ```xml
 <dependency>
-  <groupId>com.github.jygame</groupId>
-  <artifactId>jygame</artifactId>
+  <groupId>io.github.espressoengine</groupId>
+  <artifactId>espresso</artifactId>
   <version>1.0</version>
 </dependency>
 ```

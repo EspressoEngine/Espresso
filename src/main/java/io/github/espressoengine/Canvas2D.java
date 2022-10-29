@@ -1,13 +1,13 @@
-package com.github.jygame;
+package io.github.espressoengine;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.*;
-import com.github.jygame.object.Mesh2D;
-import com.github.jygame.object.Sprite2D;
-import com.github.jygame.object.Label;
+import io.github.espressoengine.object.Mesh2D;
+import io.github.espressoengine.object.Sprite2D;
+import io.github.espressoengine.object.Label;
 
 /**
  * <p>Swing <code>JPanel</code> instance where everything is drawn.</p>
@@ -26,7 +26,7 @@ public class Canvas2D extends JPanel {
     /**
      * <p>Setter for the field <code>scene</code>.</p>
      *
-     * @param scene a {@link com.github.jygame.Scene} object
+     * @param scene a {@link io.github.espressoengine.Scene} object
      */
     public void setScene(Scene scene) {
         this.scene = scene;

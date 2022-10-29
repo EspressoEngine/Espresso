@@ -1,4 +1,4 @@
-package com.github.jygame.sound;
+package io.github.espressoengine.sound;
 
 import java.io.File;
 import java.io.IOException;

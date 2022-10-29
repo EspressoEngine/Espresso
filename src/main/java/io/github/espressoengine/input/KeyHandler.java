@@ -1,9 +1,9 @@
-package com.github.jygame.input;
+package io.github.espressoengine.input;
 
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-import com.github.jygame.Window;
+import io.github.espressoengine.Window;
 
 import java.awt.event.KeyEvent;
 
@@ -21,7 +21,7 @@ public class KeyHandler {
     /**
      * <p>Constructor for KeyHandler.</p>
      *
-     * @param window a {@link com.github.jygame.Window} object
+     * @param window a {@link io.github.espressoengine.Window} object
      */
     public KeyHandler(Window window) {
         window.addKeyListener(new KeyListener() {

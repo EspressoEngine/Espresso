@@ -1,4 +1,4 @@
-package com.github.jygame;
+package io.github.espressoengine;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -30,7 +30,7 @@ public class Window extends JFrame {
   /**
    * <p>Constructor for Window taking a <code>Vector2</code> as a parameter for the windows's size.</p>
    *
-   * @param size a {@link com.github.jygame.Vector2} object
+   * @param size a {@link io.github.espressoengine.Vector2} object
    */
   public Window(Vector2 size) {
     this.SIZE.set(size);
@@ -50,7 +50,7 @@ public class Window extends JFrame {
   /**
    * <p>Constructor for Window with both a size and title specified.</p>
    *
-   * @param size a {@link com.github.jygame.Vector2} object
+   * @param size a {@link io.github.espressoengine.Vector2} object
    * @param title a {@link java.lang.String} object
    */
   public Window(Vector2 size, String title) {

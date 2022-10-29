@@ -1,6 +1,6 @@
-package com.github.jygame.object;
+package io.github.espressoengine.object;
 
-import com.github.jygame.Vector2;
+import io.github.espressoengine.Vector2;
 
 import java.awt.geom.Rectangle2D;
 
@@ -31,7 +31,7 @@ public class Rect extends Mesh2D {
     /**
      * <p>Constructor for Rect.</p>
      *
-     * @param size a {@link com.github.jygame.Vector2} object
+     * @param size a {@link io.github.espressoengine.Vector2} object
      */
     public Rect(Vector2 size) {
         this.size = size;
