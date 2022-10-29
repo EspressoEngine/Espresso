@@ -1,8 +1,8 @@
-package com.github.jygame;
+package io.github.espressoengine;
 
 import java.util.ArrayList;
 import java.awt.Color;
-import com.github.jygame.object.Object;
+import io.github.espressoengine.object.Object;
 import java.util.Comparator;
 import java.util.concurrent.Executors;
 
@@ -25,7 +25,7 @@ public class Scene {
     /**
      * <p>Constructor which uses a predefined <code>Window</code>.</p>
      *
-     * @param window a {@link com.github.jygame.Window} object
+     * @param window a {@link io.github.espressoengine.Window} object
      */
     public Scene(Window window) {
         this.window = window;
@@ -46,7 +46,7 @@ public class Scene {
     /**
      * Adds an object to the scene (by adding it to a queue of objects to add to <code>Scene.objects</code> when the scene next updates).
      *
-     * @param object a {@link com.github.jygame.object.Object} object
+     * @param object a {@link io.github.espressoengine.object.Object} object
      */
     public void add(Object object) {
         objectsToAdd.add(object);
@@ -54,7 +54,7 @@ public class Scene {
     /**
      * Removes an object from the scene (by adding it to a queue of objects to remove from <code>Scene.objects</code> when the scene next updates).
      *
-     * @param object a {@link com.github.jygame.object.Object} object
+     * @param object a {@link io.github.espressoengine.object.Object} object
      */
     public void remove(Object object) {
         objectsToRemove.add(object);

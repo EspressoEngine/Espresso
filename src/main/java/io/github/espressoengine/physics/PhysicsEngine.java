@@ -1,9 +1,9 @@
 /* Very basic physics implementation. Look to something like https://dyn4j.org/ for a more in-depth engine. */
-package com.github.jygame.physics;
+package io.github.espressoengine.physics;
 
 import java.util.ArrayList;
 
-import com.github.jygame.Vector2;
+import io.github.espressoengine.Vector2;
 
 /**
  * <p>A simple 2D physics engine for JyGame.</p>
@@ -42,7 +42,7 @@ public class PhysicsEngine {
     /**
      * <p>Adds a <code>RigidBody</code> to the list of total bodies.</p>
      *
-     * @param object a {@link com.github.jygame.physics.RigidBody} object
+     * @param object a {@link io.github.espressoengine.physics.RigidBody} object
      */
     public void add(RigidBody object) {
         bodiesToAdd.add(object);
@@ -51,7 +51,7 @@ public class PhysicsEngine {
     /**
      * <p>Removes a <code>RigidBody</code> from the list of total bodies.</p>
      *
-     * @param object a {@link com.github.jygame.physics.RigidBody} object
+     * @param object a {@link io.github.espressoengine.physics.RigidBody} object
      */
     public void remove(RigidBody object) {
         bodiesToRemove.add(object);

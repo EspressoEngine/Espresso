@@ -1,12 +1,12 @@
 // DOWN == NEGATIVE
 // UP == POSITIVE
 // CONTRARY TO POSITIONING, WHERE DOWN == POSITIVE
-package com.github.jygame.physics;
+package io.github.espressoengine.physics;
 
 import java.util.ArrayList;
 
-import com.github.jygame.Vector2;
-import com.github.jygame.object.Object;
+import io.github.espressoengine.Vector2;
+import io.github.espressoengine.object.Object;
 
 /**
  * <p>RigidBody class.</p>
@@ -26,7 +26,7 @@ public class RigidBody {
     /**
      * <p>Constructor for RigidBody.</p>
      *
-     * @param object a {@link com.github.jygame.object.Object} object
+     * @param object a {@link io.github.espressoengine.object.Object} object
      */
     public RigidBody(Object object) {
         this.object = object;
@@ -43,7 +43,7 @@ public class RigidBody {
     /**
      * Checks collisions with the edges of the screen and updates the velocity of the object accordingly.
      *
-     * @param bounds a {@link com.github.jygame.Vector2} object
+     * @param bounds a {@link io.github.espressoengine.Vector2} object
      */
     public void checkScreenCollisions(Vector2 bounds) {
         if (object.boundingBox == null || disabled == true)
@@ -71,7 +71,7 @@ public class RigidBody {
     /**
      * Checks collisions with another object and updates its velocity accordingly.
      *
-     * @param body a {@link com.github.jygame.physics.RigidBody} object
+     * @param body a {@link io.github.espressoengine.physics.RigidBody} object
      */
     public void checkObjectCollisions(RigidBody body) { // ...with the bounds of the screen
         if (object.boundingBox == null)
@@ -132,7 +132,7 @@ public class RigidBody {
     /**
      * Called when the body enters another body. Designed to be overridden.
      *
-     * @param body a {@link com.github.jygame.physics.RigidBody} object
+     * @param body a {@link io.github.espressoengine.physics.RigidBody} object
      */
     public void onBodyEntered(RigidBody body) {
         // Users can create a class inherited from this type and override this function.
@@ -141,7 +141,7 @@ public class RigidBody {
     /**
      * Called when the body exits another body. Designed to be overridden.
      *
-     * @param body a {@link com.github.jygame.physics.RigidBody} object
+     * @param body a {@link io.github.espressoengine.physics.RigidBody} object
      */
     public void onBodyExited(RigidBody body) {
         // Users can create a class inherited from this type and override this function.

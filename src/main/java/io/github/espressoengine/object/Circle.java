@@ -1,6 +1,6 @@
-package com.github.jygame.object;
+package io.github.espressoengine.object;
 
-import com.github.jygame.Vector2;
+import io.github.espressoengine.Vector2;
 
 import java.awt.geom.*;
 

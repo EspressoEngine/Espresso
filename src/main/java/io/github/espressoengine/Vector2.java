@@ -1,4 +1,4 @@
-package com.github.jygame;
+package io.github.espressoengine;
 
 /**
  * Represents a 2D vector.
@@ -45,7 +45,7 @@ public class Vector2 {
     /**
      * Sets the position of the vector to that of another vector.
      *
-     * @param vector a {@link com.github.jygame.Vector2} object
+     * @param vector a {@link io.github.espressoengine.Vector2} object
      */
     public void set(Vector2 vector) {
         this.x = vector.x;
@@ -56,8 +56,8 @@ public class Vector2 {
     /**
      * Returns a new vector with its position added from both the current vector and parameter <code>vector</code>.
      *
-     * @param vector a {@link com.github.jygame.Vector2} object
-     * @return a {@link com.github.jygame.Vector2} object
+     * @param vector a {@link io.github.espressoengine.Vector2} object
+     * @return a {@link io.github.espressoengine.Vector2} object
      */
     public Vector2 add(Vector2 vector) {
         return new Vector2(this.x + vector.x, this.y + vector.y);
@@ -69,7 +69,7 @@ public class Vector2 {
      *
      * @param amplitude a double
      * @param direction a double
-     * @return a {@link com.github.jygame.Vector2} object
+     * @return a {@link io.github.espressoengine.Vector2} object
      */
     public Vector2 add(double amplitude, double direction) {
         return new Vector2(this.x - amplitude * Math.sin(direction), this.y + amplitude * Math.cos(direction));
@@ -78,8 +78,8 @@ public class Vector2 {
     /**
      * Returns a new vector with its position being the current vector's subtracted by parameter <code>vector</code>.
      *
-     * @param vector a {@link com.github.jygame.Vector2} object
-     * @return a {@link com.github.jygame.Vector2} object
+     * @param vector a {@link io.github.espressoengine.Vector2} object
+     * @return a {@link io.github.espressoengine.Vector2} object
      */
     public Vector2 sub(Vector2 vector) {
         return new Vector2(this.x - vector.x, this.y - vector.y);
@@ -88,8 +88,8 @@ public class Vector2 {
     /**
      * Returns a new vector whose position is the current vector's multiplied by parameter <code>vector</code>'s position.
      *
-     * @param vector a {@link com.github.jygame.Vector2} object
-     * @return a {@link com.github.jygame.Vector2} object
+     * @param vector a {@link io.github.espressoengine.Vector2} object
+     * @return a {@link io.github.espressoengine.Vector2} object
      */
     public Vector2 mult(Vector2 vector) {
         return new Vector2(this.x * vector.x, this.y * vector.y);
@@ -99,7 +99,7 @@ public class Vector2 {
      * Returns a new vector whose position is the current vector's multiplied by a factor.
      *
      * @param factor a double
-     * @return a {@link com.github.jygame.Vector2} object
+     * @return a {@link io.github.espressoengine.Vector2} object
      */
     public Vector2 mult(double factor) {
         return new Vector2(this.x * factor, this.y * factor);
@@ -108,7 +108,7 @@ public class Vector2 {
     /**
      * Returns true if two vectors have the same position.
      *
-     * @param vector a {@link com.github.jygame.Vector2} object
+     * @param vector a {@link io.github.espressoengine.Vector2} object
      * @return a boolean
      */
     public boolean equals(Vector2 vector) {
@@ -118,9 +118,9 @@ public class Vector2 {
     /**
      * <p>Returns a new vector with <code>Utils.clamp</code> used on both the x and y values for the vector.</p>
      *
-     * @param min a {@link com.github.jygame.Vector2} object
-     * @param max a {@link com.github.jygame.Vector2} object
-     * @return a {@link com.github.jygame.Vector2} object
+     * @param min a {@link io.github.espressoengine.Vector2} object
+     * @param max a {@link io.github.espressoengine.Vector2} object
+     * @return a {@link io.github.espressoengine.Vector2} object
      */
     public Vector2 clamp(Vector2 min, Vector2 max) { // Could move this to Utils but I think it fits better here.
         return new Vector2(
@@ -134,7 +134,7 @@ public class Vector2 {
      *
      * @param min a double
      * @param max a double
-     * @return a {@link com.github.jygame.Vector2} object
+     * @return a {@link io.github.espressoengine.Vector2} object
      */
     public Vector2 clamp(double min, double max) {
         return new Vector2(

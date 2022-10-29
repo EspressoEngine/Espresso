@@ -1,6 +1,6 @@
-package com.github.jygame.object;
+package io.github.espressoengine.object;
 
-import com.github.jygame.Vector2;
+import io.github.espressoengine.Vector2;
 
 import java.awt.geom.Rectangle2D;
 
@@ -49,7 +49,7 @@ public class Object {
     /**
      * Returns the position of an object's bounding box.
      *
-     * @return a {@link com.github.jygame.Vector2} object
+     * @return a {@link io.github.espressoengine.Vector2} object
      */
     public Vector2 getBoundingBoxPosition() {
         return new Vector2(boundingBox.getX(), boundingBox.getY());
@@ -58,7 +58,7 @@ public class Object {
     /**
      * <p>Rotates an object to point at a <code>Vector2</code></p>
      *
-     * @param lookpos a {@link com.github.jygame.Vector2} object
+     * @param lookpos a {@link io.github.espressoengine.Vector2} object
      */
     public void lookAt(Vector2 lookpos) {
         rotation = Math.atan2(lookpos.y - position.y, lookpos.x - position.x);

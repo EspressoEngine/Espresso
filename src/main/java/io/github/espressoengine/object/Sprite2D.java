@@ -1,4 +1,4 @@
-package com.github.jygame.object;
+package io.github.espressoengine.object;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
