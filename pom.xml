@@ -18,7 +18,21 @@
       <url>https://www.gnu.org/licenses/gpl-3.0.html</url>
     </license>
   </licenses>
-
+  
+  <developers>
+    <developer>
+      <name>PastThePixels</name>
+      <email>pastthescreen@protonmail.com</email>
+      <url>https://github.com/pastthepixels</url>
+    </developer>
+  </developers>
+  
+  <scm>
+    <connection>scm:git:git://github.com/espressoengine/espresso.git</connection>
+    <developerConnection>scm:git:ssh://github.com:espressoengine/espresso.git</developerConnection>
+    <url>http://github.com/espressoengine/espresso/tree/stable</url>
+  </scm>
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
