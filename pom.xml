@@ -6,7 +6,7 @@
 
   <groupId>io.github.espressoengine</groupId>
   <artifactId>espresso</artifactId>
-  <version>1.0</version>
+  <version>1.0.0</version>
 
   <name>Espresso</name>
   <url>https://espressoengine.github.io/</url>
