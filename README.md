@@ -23,47 +23,6 @@ Like the engine, it's designed to be simple and is better when you pair it with 
 ...I guess you can't really pair this game engine with milk and sugar, but you get the point. And of course I had to name it after a coffee, because [Java](https://www.infoworld.com/article/2077265/so-why-did-they-decide-to-call-it-java.html).
 
 ## How do I install Espresso for use in my own projects?
-### Method A: GitHub Packages
-1. Create a Maven project.
-2. Add this to your `pom.xml`:
-```xml
-<repositories>
-  <repository>
-    <id>github</id>
-    <name>GitHub PastThePixels Apache Maven Packages</name>
-    <url>https://maven.pkg.github.com/pastthepixels/JyGame</url>
-    <releases><enabled>true</enabled></releases>
-    <snapshots><enabled>true</enabled></snapshots>
-  </repository>
-</repositories>
-
-<dependencies>
-  <dependency>
-    <groupId>io.github.espressoengine</groupId>
-    <artifactId>espresso</artifactId>
-    <version>1.0</version>
-  </dependency>
-</dependencies>
-```
-3. Go [here](https://github.com/settings/tokens) and create a personal access token with the "read:packages" checkbox checked.
-4. Edit your [settings.xml](https://maven.apache.org/settings.html) so it looks something like this. Make sure to replace `USERNAME` and `ACCESS_TOKEN` with your actual username and access token.
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-
-<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
-  <servers>
-      <server>
-          <id>github</id>
-          <username>USERNAME</username>
-          <password>ACCESS_TOKEN</password>
-      </server>
-  </servers>
-</settings>
-```
-5. Profit
-
-### Method B: Build it yourself
 1. Clone this repository to your own computer.
 2. Once in the directory, run the following command:
 ```bash
