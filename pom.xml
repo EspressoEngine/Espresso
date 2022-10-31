@@ -28,8 +28,8 @@
   </developers>
   
   <scm>
-    <connection>scm:git:git@github.com:espressoengine/espresso.git</connection>
-    <developerConnection>scm:git:git@github.com:espressoengine/espresso.git</developerConnection>
+    <connection>scm:git:https://github.com/espressoengine/espresso.git</connection>
+    <developerConnection>scm:git:https://github.com/espressoengine/espresso.git</developerConnection>
     <url>http://github.com/espressoengine/espresso/tree/stable</url>
   </scm>
   
