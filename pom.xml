@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.github.espressoengine</groupId>
   <artifactId>espresso</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <name>Espresso</name>
   <description>A simple and lightweight game engine for Java using Swing.</description>
@@ -31,6 +30,7 @@
     <connection>scm:git:git://github.com/espressoengine/espresso.git</connection>
     <developerConnection>scm:git:ssh://github.com/espressoengine/espresso.git</developerConnection>
     <url>http://github.com/espressoengine/espresso/tree/stable</url>
+    <tag>espresso-1.0.0</tag>
   </scm>
   
   <distributionManagement>
