@@ -70,7 +70,7 @@ public class KeyHandler {
     }
 
     /**
-     * <p>Similar to Godot's getAxis. Returns -1 if the key under <code>negativeKeyCode<code> is pressed, 1 if the key under <code>positiveKeyCode</code> is pressed, and 0 if none or both of them are pressed.</p>
+     * <p>Similar to Godot's getAxis. Returns -1 if the key under <code>negativeKeyCode</code> is pressed, 1 if the key under <code>positiveKeyCode</code> is pressed, and 0 if none or both of them are pressed.</p>
      *
      * @param negativeKeyCode a int
      * @param positiveKeyCode a int

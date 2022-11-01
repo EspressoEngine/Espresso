@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * Window created with <code>java.awt</code> and <code>javax.swing<code> and featuring a <code>Canvas2D</code> instance.
+ * Window created with <code>java.awt</code> and <code>javax.swing</code> and featuring a <code>Canvas2D</code> instance.
  *
  * @author pastthepixels
  * @version $Id: $Id
