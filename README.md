@@ -23,6 +23,16 @@ Like the engine, it's designed to be simple and is better when you pair it with 
 ...I guess you can't really pair this game engine with milk and sugar, but you get the point. And of course I had to name it after a coffee, because [Java](https://www.infoworld.com/article/2077265/so-why-did-they-decide-to-call-it-java.html).
 
 ## How do I install Espresso for use in my own projects?
+## 1. The easy way
+4. In your `pom.xml` file, add this under the `<dependencies>` tag:
+```xml
+<dependency>
+  <groupId>io.github.espressoengine</groupId>
+  <artifactId>espresso</artifactId>
+  <version>1.0.0</version> <!-- Or whatever the version for the newest release is. -->
+</dependency>
+```
+## 2. The hard way
 1. Clone this repository to your own computer.
 2. Once in the directory, run the following command:
 ```bash
@@ -34,7 +44,7 @@ mvn install
 <dependency>
   <groupId>io.github.espressoengine</groupId>
   <artifactId>espresso</artifactId>
-  <version>1.0</version>
+  <version>1.0.0</version> <!-- Or whatever the version for the newest release is. -->
 </dependency>
 ```
 5. Profit
