@@ -50,4 +50,4 @@ mvn install
 5. Profit
 
 ## How do I use Espresso? Do you have an example?
-Although it isn't fully documented (yet), you can try an example of Espresso [here](https://github.com/pastthepixels/JyGame-Example).
+https://github.com/EspressoEngine/Example
