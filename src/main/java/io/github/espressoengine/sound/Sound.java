@@ -42,6 +42,22 @@ public class Sound {
     }
 
     /**
+     * Gets a clip from a File instance. Since this is built with <code>javax.sound</code> it only supports .wav files at the moment.
+     *
+     * @param file a {@link java.io.File} object
+     * @return a {@link javax.sound.sampled.Clip} object
+     * @throws javax.sound.sampled.UnsupportedAudioFileException if any.
+     * @throws java.io.IOException if any.
+     * @throws javax.sound.sampled.LineUnavailableException if any.
+     */
+    public static Clip getClip(File file) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        AudioInputStream stream = AudioSystem.getAudioInputStream(file);
+        Clip clip = AudioSystem.getClip();
+        clip.open(stream);
+        return clip;
+    }
+
+    /**
      * Gets a clip from a file path. Since this is built with <code>javax.sound</code> it only supports .wav files at the moment.
      *
      * @param path a {@link java.lang.String} object
@@ -51,11 +67,7 @@ public class Sound {
      * @throws javax.sound.sampled.LineUnavailableException if any.
      */
     public static Clip getClip(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(path);
-        AudioInputStream stream = AudioSystem.getAudioInputStream(file);
-        Clip clip = AudioSystem.getClip();
-        clip.open(stream);
-        return clip;
+        return getClip(new File(path));
     }
 
     /**
