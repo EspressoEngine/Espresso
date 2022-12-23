@@ -1,4 +1,4 @@
-package io.github.espressoengine.sound;
+package io.github.espressoengine;
 
 import java.io.File;
 
