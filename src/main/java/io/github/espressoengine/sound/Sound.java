@@ -33,6 +33,11 @@ public class Sound {
 	public ExecutorService playing_executor = Executors.newSingleThreadExecutor();
 
 	/**
+	 * Most recently created Clip instance from playClip()
+	 */
+	private Clip clip;
+
+	/**
 	 * Constuctor that creates a new <code>Sound</code> from a file path by calling
 	 * <code>Sound.getClip</code>.
 	 *
@@ -114,11 +119,20 @@ public class Sound {
 
 		try {
 			Clip clip = AudioSystem.getClip();
+			this.clip = clip;
 			if (this.loop) {
 				clip.loop(Clip.LOOP_CONTINUOUSLY);
 			}
 			clip.addLineListener(listener);
 			clip.open(audioInputStream);
+
+			if(clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+				FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(volume_db);
+			} else {
+				System.out.println("Warning! The audio playing doesn't support its volume being changed.");
+			}
+
 			try {
 				clip.start();
 				listener.waitUntilDone();
@@ -169,10 +183,10 @@ public class Sound {
 	}
 
 	/*
-	 * Stops the most recently playing audio thread.
+	 * Stops the most recently playing sound.
 	 */
 	public void stop() {
-		this.playing_executor.shutdown();
+		if(this.clip != null && this.clip.isActive()) this.clip.stop();
 	}
 
 }
