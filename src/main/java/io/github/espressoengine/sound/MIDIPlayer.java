@@ -14,6 +14,8 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequencer;
 import javax.sound.midi.Synthesizer;
 
+import io.github.espressoengine.Resource;
+
 /*
  * Plays MIDI files. Unlike <code>io.github.espressoengine.sound.Sound</code>, we don't need to store byte arrays to play sounds multiple times because we're playing songs.
  * <b>NOTE: It has reverb and there is NOTHING you can do about it. I searched it up and got absolutely nothing. It's probably to do with a MIDI synthesizer of OpenJDK.
@@ -41,6 +43,16 @@ public class MIDIPlayer {
         }
     }
 
+	public MIDIPlayer(Resource resource) {
+        try {
+			this.createSequencer();
+            this.load(resource);
+        } catch(Exception err) {
+            err.printStackTrace();
+        }
+    }
+
+
     /**
      * Prints available sequnecers. Adapted from https://stackoverflow.com/questions/762803/midiunavailableexception-in-java.
      */
@@ -67,6 +79,10 @@ public class MIDIPlayer {
         inputStream = new BufferedInputStream(new FileInputStream(new File(path)));
     }
 
+	public void load(Resource resource) throws MidiUnavailableException, FileNotFoundException {
+        inputStream = new BufferedInputStream(resource.getStream());
+    }
+
 
 	/**
 	 * Creates a new <code>javax.sound.midi.Sequencer</code> and <code>javax.sound.midi.Synthesizer</code>
@@ -85,22 +101,22 @@ public class MIDIPlayer {
 
 	/**
 	 * Loads and sets a SoundFont for the sequencer.
-	 * @param path
+	 * @param resource
 	 * @throws InvalidMidiDataException
 	 * @throws IOException
 	 * @throws MidiUnavailableException
 	 */
-	public void loadSoundFont(String path) throws InvalidMidiDataException, IOException, MidiUnavailableException {
-		synthesizer.loadAllInstruments(MidiSystem.getSoundbank(new File(path)));
+	public void loadSoundFont(Resource resource) throws InvalidMidiDataException, IOException, MidiUnavailableException {
+		synthesizer.loadAllInstruments(MidiSystem.getSoundbank(resource.getStream()));
 	}
 
 	/**
 	 * Calls <code>loadSoundFont<code> with a try/catch.
-	 * @param path
+	 * @param resource
 	 */
-	public void setSoundFont(String path) {
+	public void setSoundFont(Resource resource) {
 		try {
-			this.loadSoundFont(path);
+			this.loadSoundFont(resource);
 		} catch (Exception err) {
 			err.printStackTrace();
 		}

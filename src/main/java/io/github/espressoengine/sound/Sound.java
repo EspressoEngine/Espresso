@@ -1,5 +1,7 @@
 package io.github.espressoengine.sound;
 
+import io.github.espressoengine.Resource;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.Executors;
@@ -7,6 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 
 import java.io.InputStream;
+import java.net.URL;
 import java.io.ByteArrayInputStream;
 
 import javax.sound.sampled.*;
@@ -30,6 +33,8 @@ public class Sound {
 	public boolean loop = false;
 	public float volume_db = 0;
 
+	public Resource resource;
+
 	public ExecutorService playing_executor = Executors.newSingleThreadExecutor();
 
 	/**
@@ -41,10 +46,10 @@ public class Sound {
 	 * Constuctor that creates a new <code>Sound</code> from a file path by calling
 	 * <code>Sound.getClip</code>.
 	 *
-	 * @param path a {@link java.lang.String} object
+	 * @param resource
 	 */
-	public Sound(String path) {
-		this.load(path);
+	public Sound(Resource resource) {
+		this.load(resource);
 	}
 
 	/**
@@ -62,6 +67,12 @@ public class Sound {
 		return AudioSystem.getAudioInputStream(file);
 	}
 
+	public static AudioInputStream getStream(URL url)
+			throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		return AudioSystem.getAudioInputStream(url);
+	}
+
+
 	/**
 	 * Loads an array of bytes from a file and caches it, so a new AudioInputStream
 	 * can be created from it later without lag. If a large enough file is loaded,
@@ -73,10 +84,32 @@ public class Sound {
 	public void load(String path) {
 		this.url = path;
 		try {
-			AudioInputStream stream = getStream(new File(path));
+			this.load(getStream(new File(path)));
+		} catch (Exception err) {
+			err.printStackTrace();
+		}
+	}
+
+	/**
+	 * Loads an array of bytes from a Resource instance
+	 * 
+	 * @param resource a {@link io.github.espressoengine} object
+	 */
+	public void load(Resource resource) {
+		this.resource = resource;
+		try {
+			this.load(getStream(new URL(resource.toString())));
+		} catch (Exception err) {
+			err.printStackTrace();
+		}
+	}
+
+	private void load(AudioInputStream stream) {
+		try {
 			this.bytes = stream.readAllBytes();
 			this.format = stream.getFormat();
 		} catch (IOException io_err) {
+			io_err.printStackTrace();
 			System.out.println(
 					"Reached IOException while loading audio--likely because it is too large. Will instead opt to load audio file when playing.");
 			System.out.println(url);
@@ -160,7 +193,7 @@ public class Sound {
 	 */
 	private void loadAndPlay()
 			throws IOException, UnsupportedAudioFileException, LineUnavailableException, InterruptedException {
-		this.playClip(getStream(new File(this.url)));
+		this.playClip(getStream(new URL(this.resource)));
 	}
 
 	/*
