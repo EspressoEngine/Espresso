@@ -1,95 +1,225 @@
 package io.github.espressoengine.sound;
 
+import io.github.espressoengine.Resource;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.Executors;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import java.util.concurrent.ExecutorService;
+
+import java.io.InputStream;
+import java.net.URL;
+import java.io.ByteArrayInputStream;
+
+import javax.sound.sampled.*;
+import javax.sound.sampled.LineEvent.Type;
 
 /**
- * <p>Plays sound with <code>javax.sound.sampled</code>. Right now, due to the way these libraries work, you can only use .wav files.</p>
+ * Plays sound with <code>javax.sound.sampled</code>. See <code href=
+ * "https://docs.oracle.com/javase/8/docs/api/javax/sound/sampled/AudioSystem.html#getAudioFileTypes">AudioSystem.getAudioFileTypes</code>
+ * for more.
+ * 
  * For more information, look at <code>Sound.getClip</code>.
  *
  * @author pastthepixels
  * @version $Id: $Id
  */
 public class Sound {
-    // sound
+	public byte[] bytes;
+	public AudioFormat format;
+	public String url;
 
-    /*
-     * Functionally same as <code>volume_db</code> from the Godot engine.
-     */
-    public float volume_db = 0;
+	public boolean loop = false;
+	public float volume_db = 0;
 
-    private Clip clip;
+	public Resource resource;
 
-    /**
-     * Constuctor that creates a new <code>Sound</code> from a file path by calling <code>Sound.getClip</code>.
-     *
-     * @param path a {@link java.lang.String} object
-     */
-    public Sound(String path) {
-        try {
-            this.clip = Sound.getClip(path);
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace();
-        }
-    }
+	public ExecutorService playing_executor = Executors.newSingleThreadExecutor();
 
-    /**
-     * Gets a clip from a file path. Since this is built with <code>javax.sound</code> it only supports .wav files at the moment.
-     *
-     * @param path a {@link java.lang.String} object
-     * @return a {@link javax.sound.sampled.Clip} object
-     * @throws javax.sound.sampled.UnsupportedAudioFileException if any.
-     * @throws java.io.IOException if any.
-     * @throws javax.sound.sampled.LineUnavailableException if any.
-     */
-    public static Clip getClip(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(path);
-        AudioInputStream stream = AudioSystem.getAudioInputStream(file);
-        Clip clip = AudioSystem.getClip();
-        clip.open(stream);
-        return clip;
-    }
+	/**
+	 * Most recently created Clip instance from playClip()
+	 */
+	private Clip clip;
 
-    /**
-     * Sets the sound clip (<code>javax.sound.sampled.Clip</code>) to loop continuously or not.
-     *
-     * @param loop a boolean
-     */
-    public void setLoop(boolean loop) {
-        clip.loop(loop == true? Clip.LOOP_CONTINUOUSLY : 0);
-    }
+	/**
+	 * Constuctor that creates a new <code>Sound</code> from a file path by calling
+	 * <code>Sound.getClip</code>.
+	 *
+	 * @param resource
+	 */
+	public Sound(Resource resource) {
+		this.load(resource);
+	}
 
-    /**
-     * Plays the sound on a new thread.
-     */
-    public void play() {
-        // Plays audio on a different thread so we can run clip.drain()
-        Executors.newSingleThreadExecutor().submit(() -> { // λ λ λ literally half-life by valve software λ λ λ
-            try {
-                // Waiting to ensure the clip has loaded
-                while(clip == null) { Thread.sleep(100); }
+	/**
+	 * Gets an AudioInputStream from a file. Since this is built with
+	 * <code>javax.sound</code> it only supports .wav files at the moment.
+	 *
+	 * @param file a {@link java.io.File} object
+	 * @return a {@link javax.sound.sampled.AudioInputStream} object
+	 * @throws javax.sound.sampled.UnsupportedAudioFileException if any.
+	 * @throws java.io.IOException                               if any.
+	 * @throws javax.sound.sampled.LineUnavailableException      if any.
+	 */
+	public static AudioInputStream getStream(File file)
+			throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		return AudioSystem.getAudioInputStream(file);
+	}
 
-                // volume
-                if(clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
-                    FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                    gainControl.setValue(volume_db);
-                } else {
-                    System.out.println("Warning! The audio playing doesn't support its volume being changed.");
-                }
+	public static AudioInputStream getStream(URL url)
+			throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		return AudioSystem.getAudioInputStream(url);
+	}
 
-                clip.setMicrosecondPosition(0); // Resets the clip
-                clip.start(); // Starts playing
-            } catch (Exception err) {
-                err.printStackTrace();
-            }
-        });
-    }
+
+	/**
+	 * Loads an array of bytes from a file and caches it, so a new AudioInputStream
+	 * can be created from it later without lag. If a large enough file is loaded,
+	 * it can't be stored with a byte array and so it'll be loaded when it's being
+	 * played.
+	 * 
+	 * @param path a {@link java.lang.String} object
+	 */
+	public void load(String path) {
+		this.url = path;
+		try {
+			this.load(getStream(new File(path)));
+		} catch (Exception err) {
+			err.printStackTrace();
+		}
+	}
+
+	/**
+	 * Loads an array of bytes from a Resource instance
+	 * 
+	 * @param resource a {@link io.github.espressoengine} object
+	 */
+	public void load(Resource resource) {
+		this.resource = resource;
+		try {
+			this.load(getStream(new URL(resource.toString())));
+		} catch (Exception err) {
+			err.printStackTrace();
+		}
+	}
+
+	private void load(AudioInputStream stream) {
+		try {
+			this.bytes = stream.readAllBytes();
+			this.format = stream.getFormat();
+		} catch (IOException io_err) {
+			io_err.printStackTrace();
+			System.out.println(
+					"Reached IOException while loading audio--likely because it is too large. Will instead opt to load audio file when playing.");
+			System.out.println(url);
+		} catch (Exception err) {
+			err.printStackTrace();
+		}
+	}
+
+	/*
+	 * Plays a clip from an AudioInputStream on a new thread with a LineListener to
+	 * automatically close the clip once it is done. Thanks StackOverflow users
+	 * [McDowell and
+	 * others](https://stackoverflow.com/questions/577724/trouble-playing-wav-in-
+	 * java/577926#577926)! You single-handedly saved me from a lot of headaches.
+	 * 
+	 * @param audioInputStream a {@link javax.sound.sampled.AudioInputStream} object
+	 */
+	private void playClip(AudioInputStream audioInputStream)
+			throws IOException, UnsupportedAudioFileException, LineUnavailableException, InterruptedException {
+		class AudioListener implements LineListener {
+			private boolean done = false;
+
+			@Override
+			public synchronized void update(LineEvent event) {
+				Type eventType = event.getType();
+				if (eventType == Type.STOP || eventType == Type.CLOSE) {
+					done = true;
+					notifyAll();
+				}
+			}
+
+			public synchronized void waitUntilDone() throws InterruptedException {
+				while (!done) {
+					wait();
+				}
+			}
+		}
+
+		AudioListener listener = new AudioListener();
+
+		try {
+			Clip clip = AudioSystem.getClip();
+			this.clip = clip;
+			if (this.loop) {
+				clip.loop(Clip.LOOP_CONTINUOUSLY);
+			}
+			clip.addLineListener(listener);
+			clip.open(audioInputStream);
+
+			if(clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+				FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(volume_db);
+			} else {
+				System.out.println("Warning! The audio playing doesn't support its volume being changed.");
+			}
+
+			try {
+				clip.start();
+				listener.waitUntilDone();
+			} finally {
+				clip.close();
+			}
+		} finally {
+			audioInputStream.close();
+		}
+	}
+
+	/*
+	 * Plays a preloaded file from a byte array and
+	 * <code>javax.sound.sampled.AudioFormat</code> instance stored in a class
+	 * instance.
+	 */
+	private void playPreloadedFile()
+			throws IOException, UnsupportedAudioFileException, LineUnavailableException, InterruptedException {
+		this.playClip(new AudioInputStream((InputStream) (new ByteArrayInputStream(this.bytes)), this.format,
+				this.bytes.length));
+	}
+
+	/*
+	 * Loads an audio file and plays it from <code>Sound.url</code>.
+	 */
+	private void loadAndPlay()
+			throws IOException, UnsupportedAudioFileException, LineUnavailableException, InterruptedException {
+		this.playClip(getStream(new URL(this.resource)));
+	}
+
+	/*
+	 * Plays an audio file on a new thread and decides whether to run
+	 * <code>playPreloadedFile()</code< or <code>loadAndPlay()</code>.
+	 */
+	public void play() {
+		this.playing_executor = Executors.newSingleThreadExecutor();
+		this.playing_executor.submit(() -> {
+			try {
+				if (this.bytes != null) {
+					this.playPreloadedFile();
+				} else {
+					this.loadAndPlay();
+				}
+			} catch (Exception err) {
+				err.printStackTrace();
+			}
+		});
+	}
+
+	/*
+	 * Stops the most recently playing sound.
+	 */
+	public void stop() {
+		if(this.clip != null && this.clip.isActive()) this.clip.stop();
+	}
+
 }

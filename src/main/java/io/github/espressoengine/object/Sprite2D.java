@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import io.github.espressoengine.Resource;
+
 /**
  * <p>A 2D sprite.</p>
  *
@@ -21,11 +23,11 @@ public class Sprite2D extends Object {
     /**
      * <p>Loads an image from a file path.</p>
      *
-     * @param path a {@link java.lang.String} object
+     * @param resource
      */
-    public void loadImage(String path) {
+    public void loadImage(Resource resource) {
         try {
-            image = ImageIO.read(new File(path));
+            image = ImageIO.read(resource.getStream());
         } catch(IOException error) {
             error.printStackTrace();
         }
