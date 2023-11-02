@@ -1,5 +1,5 @@
 # Espresso
-A simple and lightweight engine for Java using Swing, designed primarilary for beginners to Java and those who want a lightweight engine. 
+A simple and lightweight engine for Java using Swing, designed primarily for beginners to Java and those who want a lightweight engine. 
 The goal is to make something as easy as PyGame while being object-oriented. (I mean, it used to be called *JyGame*, after all.) It initially began as a proof-of-concept for my CompSci 20 class.
 
 ## FAQ
